@@ -1,30 +1,201 @@
-html, body {
-    background-color: lightblue;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
+:root {
+  --primary: #1e3a8a;       /* Deep professional blue */
+  --primary-hover: #1d4ed8; /* Vibrant interactive blue */
+  --text-main: #1f2937;     /* High-contrast off-black for readability */
+  --text-light: #4b5563;    /* Secondary grey text */
+  --bg-main: lightblue;       /* Clean light grey background */
+  --bg-card: #ffffff;       /* Pure white for containers/cards */
+  --border: #e5e7eb;        /* Subtle divider borders */
+  --font-stack: Arial, sans-serif /* Modern, clean sans-serif font stack */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    nav {
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
+  font-family: var(--font-stack);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-        li {
-            display: inline;
-            margin-right: 15px;
-        }
+header {
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
 
-        a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
+nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  border-bottom: 2px solid var(--border);
+}
 
-            &:hover {
-                color: #0066cc;
-            }
-        }
-    }
-}                
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text-light);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.2s ease-in-out;
+  padding: 0.25rem 0;
+}
+
+nav a:hover, 
+nav a:focus {
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+}
+
+main {
+  flex: 1;
+  max-width: 800px;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+h1 {
+  font-size: 2.25rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  
+}
+
+h2 {
+  font-size: 1.75rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+p {
+  color: var(--text-light);
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+li {
+  margin-bottom: 0.75rem;
+  font-size: 1.05rem;
+  color: var(--text-main);
+  text-align: center;
+  list-style-position: inside;
+}
+
+.partner {
+  list-style: none;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 600px;        /* Keeps the list container clean and contained */
+  
+  display: flex;
+  flex-direction: column;  /* Stacks each partner row vertically */
+  gap: 2rem;               /* Adds clean spacing between the partner items */
+}
+
+.partner li {
+  display: flex;
+  flex-direction: column;  
+  align-items: center;     
+  justify-content: flex-start; 
+  text-align: center;      
+    
+  /* 2. Slightly scales down font size for the column layout if needed */
+  font-size: 0.95rem; 
+}
+
+.partner li img {
+  width: 120px;            /* Scales down the large logos uniformly */
+  height: 120px;
+  object-fit: contain;     /* Prevents logo distortion */
+  margin-bottom: 0.75rem;  /* Creates space between the logo and text */
+}
+
+.categories-list {
+  list-style: none;
+  width: 50%;
+  display: grid;
+  grid-template-columns: 1fr; 
+  gap: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2rem; 
+}
+
+ 
+.categories-list li {
+  background-color: var(--bg-card);
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-weight: 600;
+  color: var(--primary);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.categories-list li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+.main-logo {
+  display: block;       
+  margin-left: auto;     
+  margin-right: auto;   
+  max-width: 80%;      
+  height: auto;         
+  margin-top: 2rem;     
+  margin-bottom: 2rem;  
+}
+
+
+footer {
+  background-color: var(--bg-card);
+  border-top: 1px solid var(--border);
+  padding: 1.5rem;
+  text-align: center;
+  margin-top: auto;
+}
+
+footer p {
+  font-size: 0.875rem;
+  color: var(--text-light);
+  margin-bottom: 0;
+}
+
+
+@media (min-width: 640px) {
+  .categories-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  nav ul {
+    gap: 2.5rem;
+  }
+}

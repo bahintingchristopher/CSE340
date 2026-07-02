@@ -11,6 +11,12 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+//set ejs as the templating engine
+app.set('view engine', 'ejs');
+
+//tell express where to find the ejs templates
+app.set('views', path.join(__dirname, 'src/views'));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', async (req, res) => {
@@ -19,7 +25,7 @@ app.get('/', async (req, res) => {
 });
  
 app.get('/organizations', async (req, res) => {
-    const title = 'our Partner Organizations';
+    const title = 'Our Partner Organizations';
     res.render('organizations', { title });
 });
 
@@ -28,11 +34,12 @@ app.get('/projects', async (req, res) => {
     res.render('projects', { title });
 });
 
-//set ejs as the templating engine
-app.set('view engine', 'ejs');
+//categories route
+app.get('/categories', async (req, res) => {
+    const title = 'Project Categories';
+    res.render('categories', { title });
+});
 
-//tell express where to find the ejs templates
-app.set('views', path.join(__dirname, 'src/views'));
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://127.0.0.1:${PORT}`);
