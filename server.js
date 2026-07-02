@@ -11,12 +11,6 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
-
-app.listen(PORT, () => {
-  console.log(`Server is running at http://127.0.0.1:${PORT}`);
-  console.log(`Environment: ${NODE_ENV}`);
-});
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', async (req, res) => {
