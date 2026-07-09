@@ -1,4 +1,5 @@
-
+<!-- The Hard coded -->
+<!-- 
 <%- include('partials/header') %>
 <main>
     <h1><%= title %></h1>
@@ -10,4 +11,39 @@
     <li>Community Tutoring - Volunteer to tutor students in various subjects.</li>
 </ul>
 </main>
+<%- include('partials/footer') %> -->
+
+
+<!-- The New code -->
+<%- include('partials/header') %>
+
+<link rel="stylesheet" href="/css/main.css">
+
+<main>
+    <h1>Here are our Service Projects:</h1>
+    
+    <table class="projects-items">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Project Title</th>
+                <th>Organization Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% projects.forEach(project => { %>
+                <% 
+                   const datesetup = { year: 'numeric', month: 'long', day: 'numeric' };
+                   const formattedDate = new Date(project.project_date).toLocaleDateString('en-US', datesetup);
+                %>
+                <tr>
+                    <td><strong><%= formattedDate %></strong></td>
+                    <td><%= project.title %></td>
+                    <td><%= project.organization_name %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</main>
+
 <%- include('partials/footer') %>
