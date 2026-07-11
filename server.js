@@ -4,6 +4,7 @@ import path from 'path';
 import { testConnection } from './src/models/db.js';
 import { getAllOrganizations } from './src/models/organizations.js';
 import { getAllProjects } from './src/models/projects.js';
+import { getAllCategories} from './src/models/categories.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,7 +38,7 @@ app.get('/', async (req, res) => {
 //     res.render('projects', { title });
 // });
 
-//categories route
+// ss
 // app.get('/categories', async (req, res) => {
 //     const title = 'Project Categories';
 //     res.render('categories', { title });
@@ -61,6 +62,13 @@ app.get('/projects', async (req, res) => {
   res.render('projects', {title, projects} )
 })
 
+// categories
+app.get('/categories', async (req, res) => {
+    const categories = await getAllCategories();
+    const title = 'TExplore our available service tracks';
+
+    res.render('categories', { title, categories });
+});
 
 // app.listen(PORT, () => {
 //   console.log(`Server is running at http://127.0.0.1:${PORT}`);

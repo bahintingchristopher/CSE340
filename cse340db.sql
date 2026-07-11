@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS projects (
     description TEXT,
     location VARCHAR(255) NOT NULL,
     project_date DATE NOT NULL,
-    FOREIGN KEY (organization_id) REFERENCES organization(organization_id) ON DELETE CASCADE
+    REFERENCES organization(organization_id) ON DELETE CASCADE
 );
 
 -- ========================================================
@@ -77,6 +77,52 @@ INSERT INTO projects (organization_id, title, description, location, project_dat
 -- 5. VERIFY PROJECT DATA
 -- ========================================================
 SELECT * FROM projects;
+
+
+-- ========================================================
+-- 6. CREATE CATEGORIES TABLE
+-- ========================================================
+CREATE TABLE IF NOT EXISTS categories (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- ========================================================
+-- 7. CREATE JUNCTION TABLE (Many-to-Many Bridge)
+-- ========================================================
+CREATE TABLE IF NOT EXISTS project_categories (
+    project_id INT NOT NULL,
+    category_id INT NOT NULL,
+    PRIMARY KEY (project_id, category_id),
+    FOREIGN KEY (project_id) REFERENCES projects(project_id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE
+);
+
+-- ========================================================
+-- 8. INSERT SAMPLE CATEGORIES (Matching your view theme)
+-- ========================================================
+INSERT INTO categories (name) VALUES  
+('Environmental'),
+('Educational'),
+('Community Service'),
+('Health and Wellness');
+
+-- ========================================================
+-- 9. ASSOCIATE PROJECTS WITH CUSTOM CATEGORIES
+-- ========================================================
+INSERT INTO project_categories (project_id, category_id) VALUES
+-- Mapping Organization 1 Projects to Category 1 (Drafting/CAD)
+(1, 1), (2, 1), (3, 1), (4, 1), (5, 1),
+
+-- Mapping Organization 2 Projects to Category 2 (Optimization/Image Processing)
+(6, 2), (7, 2), (8, 2), (9, 2), (10, 2),
+
+-- Mapping Organization 3 Projects to Category 3 & 4 (Interface & Archiving)
+(11, 3), (12, 3), (13, 3), 
+(14, 4), (15, 4);
+
+-- Verification Query
+SELECT * FROM categories;
 
 
 
