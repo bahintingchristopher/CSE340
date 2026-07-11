@@ -99,30 +99,84 @@ CREATE TABLE IF NOT EXISTS project_categories (
 );
 
 -- ========================================================
--- 8. INSERT SAMPLE CATEGORIES (Matching your view theme)
+-- 8. INSERT  CATEGORIES (Matching your view theme)
 -- ========================================================
 INSERT INTO categories (name) VALUES  
-('Environmental'),
-('Educational'),
-('Community Service'),
-('Health and Wellness');
+('Environmental & Infrastructure'),    
+('Community Outreach & Education'),    
+('Civic Logistics & Sustainability'),   
+('Disaster Response & Support');       
 
 -- ========================================================
 -- 9. ASSOCIATE PROJECTS WITH CUSTOM CATEGORIES
 -- ========================================================
 INSERT INTO project_categories (project_id, category_id) VALUES
--- Mapping Organization 1 Projects to Category 1 (Drafting/CAD)
 (1, 1), (2, 1), (3, 1), (4, 1), (5, 1),
 
--- Mapping Organization 2 Projects to Category 2 (Optimization/Image Processing)
+
 (6, 2), (7, 2), (8, 2), (9, 2), (10, 2),
 
--- Mapping Organization 3 Projects to Category 3 & 4 (Interface & Archiving)
+
 (11, 3), (12, 3), (13, 3), 
 (14, 4), (15, 4);
 
 -- Verification Query
 SELECT * FROM categories;
+
+-- dellete the categories
+TRUNCATE TABLE categories RESTART IDENTITY CASCADE;
+
+
+-- viewing the content of environment and infastructure
+SELECT 
+    c.name AS category_name,
+    p.project_id,
+    p.title,
+    p.project_date
+FROM categories c
+JOIN project_categories pc ON c.category_id = pc.category_id
+JOIN projects p ON pc.project_id = p.project_id
+WHERE c.name = 'Environmental & Infrastructure'
+ORDER BY p.project_id ASC;
+
+-- viewing for the Community Outreach & Education
+SELECT 
+    c.name AS category_name,
+    p.project_id,
+    p.title,
+    p.project_date
+FROM categories c
+JOIN project_categories pc ON c.category_id = pc.category_id
+JOIN projects p ON pc.project_id = p.project_id
+WHERE c.name = 'Community Outreach & Education'
+ORDER BY p.project_id ASC;
+
+-- viewing Civic Logistics & Sustainability
+SELECT 
+    c.name AS category_name,
+    p.project_id,
+    p.title,
+    p.project_date
+FROM categories c
+JOIN project_categories pc ON c.category_id = pc.category_id
+JOIN projects p ON pc.project_id = p.project_id
+WHERE c.name = 'Civic Logistics & Sustainability'
+ORDER BY p.project_id ASC;
+
+
+-- for the Disaster Response & Support
+SELECT 
+    c.name AS category_name,
+    p.project_id,
+    p.title,
+    p.project_date
+FROM categories c
+JOIN project_categories pc ON c.category_id = pc.category_id
+JOIN projects p ON pc.project_id = p.project_id
+WHERE c.name = 'Disaster Response & Support'
+ORDER BY p.project_id ASC;
+
+
 
 
 
