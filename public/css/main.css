@@ -1,12 +1,11 @@
 :root {
-  --primary: #1e3a8a;       /* Deep professional blue */
-  --primary-hover: #1d4ed8; /* Vibrant interactive blue */
-  --text-main: #1f2937;     /* High-contrast off-black for readability */
-  --text-light: #4b5563;    /* Secondary grey text */
-  --bg-main: lightblue;       /* Clean light grey background */
-  --bg-card: #ffffff;       /* Pure white for containers/cards */
-  --border: #e5e7eb;        /* Subtle divider borders */
-  --font-stack: Arial, sans-serif /* Modern, clean sans-serif font stack */
+  --primary: #1e3a8a;        
+  --text-main: #1f2937;      
+  --text-light: #4b5563;    
+  --bg-main: lightblue;     
+  --bg-card: #ffffff;        
+  --border: #e5e7eb;        
+  --font-stack: Arial, sans-serif  
 }
 
 * {
@@ -79,7 +78,6 @@ h1 {
   text-align: center;
   font-weight: 700;
   letter-spacing: -0.025em;
-  
 }
 
 h2 {
@@ -110,11 +108,10 @@ li {
   padding: 0;
   margin-left: auto;
   margin-right: auto;
-  max-width: 600px;        /* Keeps the list container clean and contained */
-  
+  max-width: 600px;
   display: flex;
-  flex-direction: column;  /* Stacks each partner row vertically */
-  gap: 2rem;               /* Adds clean spacing between the partner items */
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .partner li {
@@ -123,16 +120,14 @@ li {
   align-items: center;     
   justify-content: flex-start; 
   text-align: center;      
-    
-  /* 2. Slightly scales down font size for the column layout if needed */
   font-size: 0.95rem; 
 }
 
 .partner li img {
-  width: 120px;            /* Scales down the large logos uniformly */
+  width: 120px;            
   height: 120px;
-  object-fit: contain;     /* Prevents logo distortion */
-  margin-bottom: 0.75rem;  /* Creates space between the logo and text */
+  object-fit: contain;     
+  margin-bottom: 0.75rem;  
 }
 
 .categories-list {
@@ -146,7 +141,6 @@ li {
   margin-bottom: 2rem; 
 }
 
- 
 .categories-list li {
   background-color: var(--bg-card);
   padding: 1.25rem 1.5rem;
@@ -174,34 +168,59 @@ li {
   margin-bottom: 2rem;  
 }
 
-/* Projects page*/
+ 
 .projects-items {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    font-family: sans-serif;
-    border: 1px solid black;
+    font-family: var(--font-stack);
+    border: 1px solid var(--border);
+    background-color: var(--bg-card);
 }
 
- 
 .projects-items th {
-    background-color: blue;
+    background-color: var(--primary);
+    color: var(--bg-card);
     text-align: left;
     padding: 12px;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px solid var(--border);
     font-weight: bold;
-    border: 1px solid black;
+    border: 1px solid var(--border);
 }
 
 .projects-items td {
     padding: 12px;
-    border-bottom: 1px solid #ddd;
-    border: 1px solid black;
+    border-bottom: 1px solid var(--border);
+    border: 1px solid var(--border);
+    color: var(--text-main);
 }
 
  
 .projects-items tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: rgba(30, 58, 138, 0.03);  
+}
+
+  
+.table-project-tags {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+    flex-wrap: wrap;
+}
+
+.table-project-tags .table-tag {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    background-color: var(--border);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text-light);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.table-project-tags .table-tag:hover {
+    background-color: var(--primary);
+    color: var(--bg-card);
 }
 
 footer {
@@ -218,7 +237,6 @@ footer p {
   margin-bottom: 0;
 }
 
-
 @media (min-width: 640px) {
   .categories-list {
     grid-template-columns: repeat(2, 1fr);
@@ -228,3 +246,4 @@ footer p {
     gap: 2.5rem;
   }
 }
+

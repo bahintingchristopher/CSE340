@@ -1,27 +1,9 @@
-<!-- The Hard coded -->
-<!-- 
-<%- include('partials/header') %>
-<main>
-    <h1><%= title %></h1>
-         
-<h2>Upcoming Service Projects</h2>
-<ul>
-    <li>Park Cleanup - Join us to clean up local parks and make them beautiful!</li>
-    <li>Food Drive - Help collect and distribute food to those in need.</li>
-    <li>Community Tutoring - Volunteer to tutor students in various subjects.</li>
-</ul>
-</main>
-<%- include('partials/footer') %> -->
-
-
-<!-- The New code -->
 <%- include('partials/header') %>
 
 <link rel="stylesheet" href="/css/main.css">
 
 <main>
-    <h1>Here are our Service Projects:</h1>
-    
+    <h1><%= title %></h1> 
     <table class="projects-items">
         <thead>
             <tr>
@@ -33,13 +15,33 @@
         <tbody>
             <% projects.forEach(project => { %>
                 <% 
-                   const datesetup = { year: 'numeric', month: 'long', day: 'numeric' };
-                   const formattedDate = new Date(project.project_date).toLocaleDateString('en-US', datesetup);
+                    const datesetup = { year: 'numeric', month: 'long', day: 'numeric' };
+                    const formattedDate = new Date(project.date).toLocaleDateString('en-US', datesetup);
                 %>
                 <tr>
                     <td><strong><%= formattedDate %></strong></td>
-                    <td><%= project.title %></td>
-                    <td><%= project.organization_name %></td>
+                    
+                    <td>
+                        <a href="/project/<%= project.project_id %>" class="project-title-link">
+                            <%= project.title %>
+                        </a>
+
+                        <% if (project.categories && project.categories.length > 0) { %>
+                            <div class="table-project-tags">
+                                <% project.categories.forEach(cat => { %>
+                                    <a href="/category/<%= cat.category_id %>" class="table-tag">
+                                        <%= cat.name %>
+                                    </a>
+                                <% }); %>
+                            </div>
+                        <% } %>
+                    </td>
+                    
+                    <td>
+                        <a href="/organization/<%= project.organization_id %>">
+                            <%= project.organization_name %>
+                        </a>
+                    </td>
                 </tr>
             <% }); %>
         </tbody>

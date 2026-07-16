@@ -28,7 +28,7 @@ app.set('views', path.join(__dirname, 'src/views'));
 // Middleware to log all incoming requests
 app.use((req, res, next) => {
     if (NODE_ENV === 'development') {
-        console.log(`${req.method} ${req.url}`);// Use backticks!
+        console.log(`${req.method} ${req.url}`);// Use backticks
     }
     next(); // Pass control to the next middleware or route
 });

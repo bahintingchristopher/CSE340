@@ -1,10 +1,9 @@
 import express from 'express';
 import { showOrganizationDetailsPage } from './controllers/organizations.js';
-
 import { showHomePage } from './controllers/index.js';
 import { showOrganizationsPage } from './controllers/organizations.js';
-import { showProjectsPage } from './controllers/projects.js';
-import { showCategoriesPage } from './controllers/categories.js';
+import { showProjectsPage, showProjectDetailsPage } from './controllers/projects.js';
+import { showCategoriesPage, showCategoryDetailsPage } from './controllers/categories.js';
 import { testErrorPage } from './controllers/errors.js';
 
 const router = express.Router();
@@ -19,5 +18,11 @@ router.get('/test-error', testErrorPage);
 
 // Route for organization details page
 router.get('/organization/:id', showOrganizationDetailsPage);
+
+// Route for project details page 
+router.get('/project/:id', showProjectDetailsPage);
+
+// Route to display a for category and service projects in Week3 Assignment
+router.get('/category/:id', showCategoryDetailsPage);
 
 export default router;

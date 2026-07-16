@@ -11,18 +11,17 @@
 
             <% organizations.forEach(organization => { %>
                 <li>
-                    <!-- 1. The Logo Image -->
+                   
                     <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
                     
-                    <!-- 2. The Name as a Link -->
+                   
                     <strong>
                         <a href="/organization/<%= organization.organization_id %>">
                             <%= organization.name %>
                         </a>
                     </strong>
                     
-                    <!-- 3. The Email -->
-                    : <%= organization.contact_email %>
+                   : <%= organization.contact_email %>
                 </li>
             <% }); %>
 
