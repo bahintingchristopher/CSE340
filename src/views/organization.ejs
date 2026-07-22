@@ -14,4 +14,24 @@
         <% }) %>
     </ul>
 </main>
+
+<!-- try to fix the non-appearance of success alert -->
+<% const messages = locals.flash ? locals.flash() : {}; %>
+
+<% if (messages.success && messages.success.length > 0) { %>
+  <% messages.success.forEach(msg => { %>
+    <div class="alert alert-success">
+      <%= msg %>
+    </div>
+  <% }); %>
+<% } %>
+
+<% if (messages.error && messages.error.length > 0) { %>
+  <% messages.error.forEach(msg => { %>
+    <div class="alert alert-danger">
+      <%= msg %>
+    </div>
+  <% }); %>
+<% } %>
+
 <%- include('partials/footer') %>

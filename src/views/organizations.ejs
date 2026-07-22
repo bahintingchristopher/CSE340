@@ -4,28 +4,27 @@
         
         <p>Here are a few of our partner organizations:</p>
         <ul>
-<!-- 
-            <% organizations.forEach(organization => { %>
-                <li><img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo"><strong><%= organization.name %></strong>: <%= organization.contact_email %></li>
-            <% }); %> -->
-
             <% organizations.forEach(organization => { %>
                 <li>
-                   
                     <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
                     
-                   
                     <strong>
                         <a href="/organization/<%= organization.organization_id %>">
                             <%= organization.name %>
                         </a>
                     </strong>
                     
-                   : <%= organization.contact_email %>
+                    : <%= organization.contact_email %>
+
+                    <!--  Edit link put inside the loop using 'organization.organization_id' -->
+                    | <a href="/edit-organization/<%= organization.organization_id %>">Edit</a>
                 </li>
             <% }); %>
-
         </ul>
+
+        <!-- Only global actions (like adding a new one) stay outside the loop -->
+        <p><a href="/new-organization">Add a new organization</a></p>
+
     </main>
 
 <%- include('partials/footer') %>

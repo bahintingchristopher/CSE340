@@ -11,7 +11,7 @@ const getAllCategories = async () => {
     return output.rows;
 };
 
-// week3 assignment --> NEW: Retrieve a single category by its ID for the category details page
+// Retrieve a single category by its ID for the category details page
 const getCategoryById = async (id) => {
     const query = `
         SELECT category_id, name 
@@ -23,8 +23,7 @@ const getCategoryById = async (id) => {
     return output.rows[0] || null;
 };
 
-
-// week3 assignment --> NEW: Retrieve all service projects associated with a category ID
+// Retrieve all service projects associated with a category ID
 const getProjectsByCategoryId = async (categoryId) => {
     const query = `
         SELECT 
@@ -42,5 +41,48 @@ const getProjectsByCategoryId = async (categoryId) => {
     return output.rows;
 };
 
-// Export all three functions so they can be imported by your controller
-export {getAllCategories, getCategoryById, getProjectsByCategoryId };
+// Retrieve categories assigned to a specific project ID
+const getCategoriesByServiceProjectId = async (projectId) => {
+    const query = `
+        SELECT c.category_id, c.name
+        FROM categories c
+        JOIN project_categories pc ON c.category_id = pc.category_id
+        WHERE pc.project_id = $1;
+    `;
+    const output = await db.query(query, [parseInt(projectId, 10)]);
+    return output.rows;
+};
+
+// Helper: Assign a single category to a project
+const assignCategoryToProject = async (categoryId, projectId) => {
+    const query = `
+        INSERT INTO project_categories (category_id, project_id)
+        VALUES ($1, $2);
+    `;
+
+    await db.query(query, [categoryId, projectId]);
+};
+
+// Replace all existing category assignments for a project with a new set of category IDs
+const updateCategoryAssignments = async (projectId, categoryIds) => {
+    // First, remove existing category assignments for the project
+    const deleteQuery = `
+        DELETE FROM project_categories
+        WHERE project_id = $1;
+    `;
+    await db.query(deleteQuery, [projectId]);
+
+    // Next, add the new category assignments
+    for (const categoryId of categoryIds) {
+        await assignCategoryToProject(categoryId, projectId);
+    }
+};
+
+// Export all model functions needed by controllers
+export {
+    getAllCategories,
+    getCategoryById,
+    getProjectsByCategoryId,
+    getCategoriesByServiceProjectId,
+    updateCategoryAssignments
+};

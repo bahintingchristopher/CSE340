@@ -3,6 +3,8 @@ import {fileURLToPath} from 'url';
 import path from 'path';
 import { testConnection } from './src/models/db.js';
 import router from './src/routes.js';
+import session from 'express-session';
+import flash from './src/middleware/flash.js';
 
 
 
@@ -14,6 +16,27 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+
+//for the new-organization
+// Allow Express to receive and process common POST data
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); 
+
+
+// secret session from sessions and flash messages w4 topic
+const SESSION_SECRET = process.env.SESSION_SECRET;
+
+// Set up session management to call the SESSION_SECRET
+app.use(session({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60 * 60 * 1000 } // Session expires after 1 hour of inactivity
+}));
+
+// Use flash message middleware
+app.use(flash);
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 
