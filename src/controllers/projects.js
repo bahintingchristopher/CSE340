@@ -1,6 +1,13 @@
-import { getUpcomingProjects, getProjectDetails, getCategoriesByProjectId, createProject } from '../models/projects.js';
+import { 
+    getUpcomingProjects, 
+    getProjectDetails, 
+    getCategoriesByProjectId, 
+    createProject,
+    updateProject 
+} from '../models/projects.js';
+
 import { getAllOrganizations } from '../models/organizations.js';
-import {body, validationResult} from 'express-validator';
+import { body, validationResult } from 'express-validator';
 
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
 
@@ -25,8 +32,6 @@ const projectValidation = [
         .notEmpty().withMessage('Organization is required')
         .isInt().withMessage('Organization must be a valid integer')
 ];
-
-
 
 const showProjectsPage = async (req, res, next) => {
     try {
@@ -97,8 +102,62 @@ const processNewProjectForm = async (req, res, next) => {
     }
 };
 
+// team activity week4
+// GET: Display edit form
+const showEditProjectForm = async (req, res, next) => {
+    try {
+        const projectId = req.params.id;
+        const project = await getProjectDetails(projectId); //you will need to get the project data from the model using the model function getProjectDetails. 
+        const organizations = await getAllOrganizations(); // list of all the organizations to allow the user to assign the project to a different organization, 
+
+        if (!project) {
+            return res.status(404).render('404', { title: 'Project Not Found' });
+        }
+
+        // Format date to YYYY-MM-DD for HTML <input type="date">
+        const formattedDate = new Date(project.date).toISOString().split('T')[0];
+
+        res.render('edit-project', {
+            title: `Edit Project: ${project.title}`,
+            project: { ...project, date: formattedDate },
+            organizations
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+// POST: Process edit form
+const processEditProjectForm = async (req, res, next) => {
+    const projectId = req.params.id;
+    const { title, description, location, date, organizationId } = req.body;
+
+    // 1. Check for validation errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        errors.array().forEach((error) => {
+            req.flash('error', error.msg);
+        });
+        return res.redirect(`/edit-project/${projectId}`);
+    }
+
+    // 2. Perform database update
+    try {
+        await updateProject(projectId, title, description, location, date, organizationId);
+        
+        req.flash('success', 'Project updated successfully!');
+        res.redirect(`/project/${projectId}`);
+    } catch (error) {
+        console.error('Error updating project:', error);
+        req.flash('error', 'There was an error updating the service project.');
+        res.redirect(`/edit-project/${projectId}`);
+    }
+};
+
 export { showProjectsPage, 
     showProjectDetailsPage,
      showNewProjectForm, 
      processNewProjectForm,
-    projectValidation };
+    projectValidation,
+    showEditProjectForm, 
+    processEditProjectForm};

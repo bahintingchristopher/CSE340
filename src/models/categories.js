@@ -63,7 +63,7 @@ const assignCategoryToProject = async (categoryId, projectId) => {
     await db.query(query, [categoryId, projectId]);
 };
 
-// Replace all existing category assignments for a project with a new set of category IDs
+// Replace existing category assignments for a project with a new set of category IDs
 const updateCategoryAssignments = async (projectId, categoryIds) => {
     // First, remove existing category assignments for the project
     const deleteQuery = `
@@ -77,6 +77,26 @@ const updateCategoryAssignments = async (projectId, categoryIds) => {
         await assignCategoryToProject(categoryId, projectId);
     }
 };
+// week4 individual activity - Create a new category and return its generated ID
+const createCategory = async (name) => {
+    const query = `
+        INSERT INTO categories (name)
+        VALUES ($1)
+        RETURNING category_id;
+    `;
+    const output = await db.query(query, [name]);
+    return output.rows[0].category_id;
+};
+
+// week4 individual activity -  Update an existing category by ID
+const updateCategory = async (id, name) => {
+    const query = `
+        UPDATE categories
+        SET name = $1
+        WHERE category_id = $2;
+    `;
+    await db.query(query, [name, parseInt(id, 10)]);
+};
 
 // Export all model functions needed by controllers
 export {
@@ -84,5 +104,7 @@ export {
     getCategoryById,
     getProjectsByCategoryId,
     getCategoriesByServiceProjectId,
-    updateCategoryAssignments
+    updateCategoryAssignments,
+    createCategory,
+    updateCategory
 };

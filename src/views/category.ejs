@@ -21,6 +21,13 @@
     <% } else { %>
         <p>No service projects found in this category yet.</p>
     <% } %>
+
+    <!-- Edit Category Action Button -->
+  <% if (typeof category !== 'undefined' && category) { %>
+    <div class="actions">
+      <a href="/edit-category/<%= category.category_id %>" class="button btn-secondary">Edit Category</a>
+    </div>
+  <% } %>
 </main>
 
 <%- include('partials/footer') %>

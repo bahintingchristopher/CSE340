@@ -10,6 +10,7 @@
                 <th>Date</th>
                 <th>Project Title</th>
                 <th>Organization Name</th>
+                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -42,6 +43,13 @@
                             <%= project.organization_name %>
                         </a>
                     </td>
+
+                    <!-- start week 4 team activity  -->
+                     <td>
+                        <a href="/edit-project/<%= project.project_id %>" class="btn btn-secondary">Edit</a>
+                    </td>
+                    <!-- end week 4 team activity -->
+
                 </tr>
             <% }); %>
         </tbody>

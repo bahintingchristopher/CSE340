@@ -4,8 +4,6 @@ import { getProjectsByOrganizationId } from '../models/projects.js';
 import {body, validationResult} from 'express-validator';
 
 // start w4 data validation
-// Define validation and sanitization rules for organization form
-// Define validation rules for organization form
 const organizationValidation = [
     body('name')
         .trim()

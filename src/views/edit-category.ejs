@@ -1,0 +1,28 @@
+<%- include('partials/header') %>
+
+<main class="container">
+  <h1><%= title %></h1>
+
+  <form action="/edit-category/<%= category.category_id %>" method="POST">
+    <div class="form-group">
+      <label for="name">Category Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        value="<%= category.name %>"
+        required
+        maxlength="100"
+      />
+    </div>
+
+    <div class="actions" style="margin-top: 20px; display: flex; gap: 10px;">
+      <button type="submit" class="button btn-primary">Update Category</button>
+      
+      <!-- Added Cancel button here -->
+      <a href="/category/<%= category.category_id %>" class="button btn-secondary">Cancel</a>
+    </div>
+  </form>
+</main>
+
+<%- include('partials/footer') %>

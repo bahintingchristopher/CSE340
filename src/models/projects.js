@@ -140,5 +140,23 @@ const createProject = async (title, description, location, date, organizationId)
     return result.rows[0].project_id;
 };
 
+
+// team activity week4
+const updateProject = async (projectId, title, description, location, projectDate, organizationId) => {
+    const query = `
+        UPDATE projects
+        SET title = $1, description = $2, location = $3, project_date = $4, organization_id = $5
+        WHERE project_id = $6
+        RETURNING *;
+    `;
+    const result = await db.query(query, [title, description, location, projectDate, organizationId, projectId]);
+
+    if (result.rowCount === 0) {
+        throw new Error('Project not found or update failed.');
+    }
+
+    return result.rows[0];
+};
+
 // Update the export statement at the bottom of the file!
-export {getAllProjects, getProjectsByOrganizationId, getUpcomingProjects, getProjectDetails, getCategoryById, getCategoriesByProjectId, getProjectsByCategoryId, createProject };
+export {getAllProjects, getProjectsByOrganizationId, getUpcomingProjects, getProjectDetails, getCategoryById, getCategoriesByProjectId, getProjectsByCategoryId, createProject, updateProject };
