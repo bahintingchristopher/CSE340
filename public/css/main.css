@@ -336,7 +336,7 @@ counter-reset: cat-index;
 
 .categories-list li:hover {
 transform: translateX(3px);
-background-color: var(--ink);
+background-color: var(--danger-bg);
 color: #fff;
 }
 
