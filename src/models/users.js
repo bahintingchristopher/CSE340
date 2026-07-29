@@ -53,13 +53,13 @@ const authenticateUser = async (email, password) => {
         return null;
     }
 
-    // 2. Verify password
+    // Verify password
     const isPasswordValid = await verifyPassword(password, user.password_hash);
     if (!isPasswordValid) {
         return null;
     }
 
-    // 3. Remove password_hash before returning user object
+    // Remove password_hash before returning user object
     delete user.password_hash;
     return user;
 };
