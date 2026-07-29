@@ -38,6 +38,15 @@ VALUES
 -- ========================================================
 -- 3. CREATE PROJECTS TABLE
 -- ========================================================
+-- CREATE TABLE IF NOT EXISTS projects (
+--     project_id SERIAL PRIMARY KEY,
+--     organization_id INT NOT NULL,
+--     title VARCHAR(255) NOT NULL,
+--     description TEXT,
+--     location VARCHAR(255) NOT NULL,
+--     project_date DATE NOT NULL,
+--     REFERENCES organization(organization_id) ON DELETE CASCADE
+-- );
 CREATE TABLE IF NOT EXISTS projects (
     project_id SERIAL PRIMARY KEY,
     organization_id INT NOT NULL,
@@ -45,8 +54,9 @@ CREATE TABLE IF NOT EXISTS projects (
     description TEXT,
     location VARCHAR(255) NOT NULL,
     project_date DATE NOT NULL,
-    REFERENCES organization(organization_id) ON DELETE CASCADE
+    FOREIGN KEY (organization_id) REFERENCES organization(organization_id) ON DELETE CASCADE
 );
+
 
 -- ========================================================
 -- 4. INSERT SAMPLE PROJECTS (5 for each organization)
@@ -176,6 +186,32 @@ JOIN projects p ON pc.project_id = p.project_id
 WHERE c.name = 'Disaster Response & Support'
 ORDER BY p.project_id ASC;
 
+
+-- for roles Table
+CREATE TABLE roles (
+    role_id SERIAL PRIMARY KEY,
+    role_name VARCHAR(50) UNIQUE NOT NULL,
+    role_description TEXT
+);
+
+-- inserting data to the roles table
+INSERT INTO roles (role_name, role_description) VALUES 
+    ('user', 'Standard user with basic access'),
+    ('admin', 'Administrator with full system access');
+
+-- Verify the data was inserted
+SELECT * FROM roles;
+
+
+-- Creating users Table
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role_id INTEGER REFERENCES roles(role_id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 
 

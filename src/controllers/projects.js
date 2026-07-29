@@ -107,7 +107,7 @@ const processNewProjectForm = async (req, res, next) => {
 const showEditProjectForm = async (req, res, next) => {
     try {
         const projectId = req.params.id;
-        const project = await getProjectDetails(projectId); //you will need to get the project data from the model using the model function getProjectDetails. 
+        const project = await getProjectDetails(projectId); //we will need to get the project data from the model using the model function getProjectDetails. 
         const organizations = await getAllOrganizations(); // list of all the organizations to allow the user to assign the project to a different organization, 
 
         if (!project) {

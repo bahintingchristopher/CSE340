@@ -124,7 +124,7 @@ INSERT INTO project_categories (project_id, category_id) VALUES
 SELECT * FROM categories;
 
 -- dellete the categories
-TRUNCATE TABLE categories RESTART IDENTITY CASCADE;
+-- TRUNCATE TABLE categories RESTART IDENTITY CASCADE;
 
 
 -- viewing the content of environment and infastructure

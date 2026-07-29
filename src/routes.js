@@ -34,6 +34,14 @@ import { showCategoriesPage,
 
 import { testErrorPage } from './controllers/errors.js';
 
+
+import { showUserRegistrationForm,
+  processUserRegistrationForm,
+  showLoginForm,
+  processLoginForm,
+  processLogout
+ } from './controllers/users.js';
+
 const router = express.Router();
 
 // 1. Core or Main Page Routes
@@ -42,7 +50,7 @@ router.get('/organizations', showOrganizationsPage);
 router.get('/projects', showProjectsPage);
 router.get('/categories', showCategoriesPage);
 
-// 2. Static Form Routes (MUST come BEFORE any dynamic :id routes)
+// 2. Static Form Routes (MUST come before any dynamic :id routes)
 router.get('/new-project', showNewProjectForm);
 router.post('/new-project', projectValidation, processNewProjectForm);
 
@@ -69,6 +77,15 @@ router.post('/edit-project/:id', projectValidation, processEditProjectForm);
 // Week 4 individual activity - Edit Category
 router.get('/edit-category/:id', showEditCategoryForm);
 router.post('/edit-category/:id', categoryValidation, processEditCategoryForm);
+
+// User registration routes
+router.get('/register', showUserRegistrationForm);
+router.post('/register', processUserRegistrationForm);
+
+// User login routes
+router.get('/login', showLoginForm);
+router.post('/login', processLoginForm);
+router.get('/logout', processLogout);
 
 // 4. Dynamic Parameterized Routes (:id)
 router.get('/organization/:id', showOrganizationDetailsPage);

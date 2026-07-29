@@ -30,8 +30,8 @@ const SESSION_SECRET = process.env.SESSION_SECRET;
 app.use(session({
     secret: SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 60 * 60 * 1000 } // Session expires after 1 hour of inactivity
+    saveUninitialized: false, // i will not save all the uninitialized session
+    cookie: { maxAge: 60 * 60 * 1000 } 
 }));
 
 // Use flash message middleware

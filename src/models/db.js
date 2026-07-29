@@ -11,10 +11,11 @@ import { Pool } from 'pg';
  * The connection string format is:
  * postgresql://username:password@host:port/database
  */
-const pool = new Pool({
-    connectionString: process.env.DB_URL,
-    ssl: true
-});
+// const pool = new Pool({
+//     connectionString: process.env.DB_URL,
+//     ssl: true
+// });
+
 
 /**
  * Common SSL Issue:
@@ -28,6 +29,15 @@ const pool = new Pool({
  *     rejectUnauthorized: false
  * }
  */
+
+const pool = new Pool({
+    connectionString: process.env.DB_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
+
+
 
 /**
  * Since we will modify the normal pool object in development mode, we need to create and
