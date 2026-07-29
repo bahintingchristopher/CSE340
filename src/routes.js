@@ -34,6 +34,7 @@ import { showCategoriesPage,
 
 import { testErrorPage } from './controllers/errors.js';
 
+import { requireLogin, showDashboard } from './controllers/users.js';
 
 import { showUserRegistrationForm,
   processUserRegistrationForm,
@@ -95,5 +96,8 @@ router.get('/category/:id', showCategoryDetailsPage);
 
 // 5. Error Testing Route
 router.get('/test-error', testErrorPage);
+
+// Protected dashboard route week5
+router.get('/dashboard', requireLogin, showDashboard);
 
 export default router;
