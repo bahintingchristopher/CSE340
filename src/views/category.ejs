@@ -23,8 +23,8 @@
     <% } %>
 
     <!-- Edit Category Action Button -->
-  <% if (typeof category !== 'undefined' && category) { %>
-    <div class="actions">
+     <% if (user && user.role_name === 'admin' && typeof category !== 'undefined' && category) { %>
+      <div class="actions">
       <a href="/edit-category/<%= category.category_id %>" class="button btn-secondary">Edit Category</a>
     </div>
   <% } %>

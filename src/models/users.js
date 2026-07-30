@@ -1,4 +1,4 @@
-import db from './db.js'
+import db from './db.js';
 import bcrypt from 'bcrypt';
 
 const createUser = async (name, email, passwordHash) => {
@@ -23,21 +23,26 @@ const createUser = async (name, email, passwordHash) => {
     return result.rows[0].user_id;
 };
 
-// create model functions for user authentication
+// Model function to find user by email (includes name and role_name)
 const findUserByEmail = async (email) => {
     const query = `
-        SELECT user_id, name, email, password_hash, role_id 
-        FROM users 
-        WHERE email = $1
+        SELECT 
+            u.user_id, 
+            u.name, 
+            u.email, 
+            u.password_hash, 
+            u.role_id,
+            r.role_name 
+        FROM users u
+        LEFT JOIN roles r ON u.role_id = r.role_id
+        WHERE u.email = $1
     `;
-    const queryParams = [email];
+    const result = await db.query(query, [email]);
     
-    const result = await db.query(query, queryParams);
-
     if (result.rows.length === 0) {
         return null; // User not found
     }
-    
+
     return result.rows[0];
 };
 
@@ -45,24 +50,23 @@ const verifyPassword = async (password, passwordHash) => {
     return bcrypt.compare(password, passwordHash);
 };
 
-//  Main authentication function for authenticateUser
+// Main authentication function
 const authenticateUser = async (email, password) => {
-    // 1. Look up user by email
+    //  Look up user by email
     const user = await findUserByEmail(email);
     if (!user) {
         return null;
     }
 
-    // Verify password
+    //  Verify password
     const isPasswordValid = await verifyPassword(password, user.password_hash);
     if (!isPasswordValid) {
         return null;
     }
 
-    // Remove password_hash before returning user object
+    //  Remove password_hash before returning user object for security
     delete user.password_hash;
     return user;
 };
 
-
-export { createUser, authenticateUser, };
+export { createUser, authenticateUser, findUserByEmail };

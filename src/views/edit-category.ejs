@@ -16,12 +16,14 @@
       />
     </div>
 
+    <% if (user && user.role_name === 'admin') { %>
     <div class="actions" style="margin-top: 20px; display: flex; gap: 10px;">
       <button type="submit" class="button btn-primary">Update Category</button>
       
       <!-- Added Cancel button here -->
       <a href="/category/<%= category.category_id %>" class="button btn-secondary">Cancel</a>
     </div>
+    <% } %>
   </form>
 </main>
 

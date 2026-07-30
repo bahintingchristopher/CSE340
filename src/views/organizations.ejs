@@ -15,17 +15,21 @@
                     </strong>
                     
                     : <%= organization.contact_email %>
-
+                    
+                    <% if (user && user.role_name === 'admin') { %>
                     <!--  Edit link put inside the loop using 'organization.organization_id' -->
                     | <a href="/edit-organization/<%= organization.organization_id %>">Edit</a>
+                    <% } %>
                 </li>
             <% }); %>
         </ul>
 
         <!-- Only global actions (like adding a new one) stay outside the loop -->
+        <% if (user && user.role_name === 'admin') { %>
         <a href="/new-organization">
         <button type="button" class="button">Add a new organization</button>
         </a>
+        <% } %>
          
 
     </main>

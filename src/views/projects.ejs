@@ -45,18 +45,20 @@
                     </td>
 
                     <!-- start week 4 team activity  -->
+                     <% if (user && user.role_name === 'admin') { %>
                      <td>
                         <a href="/edit-project/<%= project.project_id %>" class="btn btn-secondary">Edit</a>
                     </td>
+                    <% } %>
                     <!-- end week 4 team activity -->
 
                 </tr>
             <% }); %>
         </tbody>
     </table>
-
+<% if (user && user.role_name === 'admin') { %>
   <p><a href="/new-project">Add a New Service Project</a></p>
-  
+  <% } %>
 </main>
 
 <%- include('partials/footer') %>

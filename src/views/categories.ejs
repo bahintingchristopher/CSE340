@@ -15,9 +15,11 @@
   </ul>
 
   <!-- Add New Category Action Button -->
+  <% if (user && user.role_name === 'admin') { %>
   <div class="actions">
     <a href="/new-category" class="button btn-primary">Add New Category</a>
   </div>
+  <% } %>
   
 </main>
 

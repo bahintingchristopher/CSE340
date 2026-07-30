@@ -40,7 +40,8 @@ import { showUserRegistrationForm,
   processUserRegistrationForm,
   showLoginForm,
   processLoginForm,
-  processLogout
+  processLogout,
+  requireRole
  } from './controllers/users.js';
 
 const router = express.Router();
@@ -52,35 +53,35 @@ router.get('/projects', showProjectsPage);
 router.get('/categories', showCategoriesPage);
 
 // 2. Static Form Routes (MUST come before any dynamic :id routes)
-router.get('/new-project', showNewProjectForm);
-router.post('/new-project', projectValidation, processNewProjectForm);
+router.get('/new-project', requireRole ('admin'), showNewProjectForm);
+router.post('/new-project', requireRole ('admin'), projectValidation, processNewProjectForm);
 
-router.get('/new-organization', showNewOrganizationForm);
-router.post('/new-organization', organizationValidation, processNewOrganizationForm);
+router.get('/new-organization', requireRole('admin'), showNewOrganizationForm);
+router.post('/new-organization', requireRole('admin'), organizationValidation, processNewOrganizationForm);
 
 // Week 4 individual activity - Add Category
-router.get('/new-category', showNewCategoryForm);
-router.post('/new-category', categoryValidation, processNewCategoryForm);
+router.get('/new-category', requireRole('admin'), showNewCategoryForm);
+router.post('/new-category', requireRole('admin'), categoryValidation, processNewCategoryForm);
 
 // 3. Edit Form Routes
-router.get('/edit-organization/:id', showEditOrganizationForm);
-router.post('/edit-organization/:id', organizationValidation, processEditOrganizationForm);
+router.get('/edit-organization/:id', requireRole('admin'), showEditOrganizationForm);
+router.post('/edit-organization/:id', requireRole('admin'), organizationValidation, processEditOrganizationForm);
 
 // Routes to handle the assign categories to project form week4
-router.get('/assign-categories/:projectId', showAssignCategoriesForm);
-router.post('/assign-categories/:projectId', processAssignCategoriesForm);
+router.get('/assign-categories/:projectId', requireRole('admin'), showAssignCategoriesForm);
+router.post('/assign-categories/:projectId', requireRole('admin'), processAssignCategoriesForm);
 
 // start team activity week4
-router.get('/edit-project/:id', showEditProjectForm);
-router.post('/edit-project/:id', projectValidation, processEditProjectForm);
+router.get('/edit-project/:id', requireRole('admin'), showEditProjectForm);
+router.post('/edit-project/:id', requireRole('admin'), projectValidation, processEditProjectForm);
 // end team activity week4
 
 // Week 4 individual activity - Edit Category
-router.get('/edit-category/:id', showEditCategoryForm);
-router.post('/edit-category/:id', categoryValidation, processEditCategoryForm);
+router.get('/edit-category/:id', requireRole('admin'), showEditCategoryForm);
+router.post('/edit-category/:id', requireRole('admin'), categoryValidation, processEditCategoryForm);
 
 // User registration routes
-router.get('/register', showUserRegistrationForm);
+router.get('/register',  showUserRegistrationForm);
 router.post('/register', processUserRegistrationForm);
 
 // User login routes
