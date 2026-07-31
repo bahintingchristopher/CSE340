@@ -21,11 +21,15 @@ const processUserRegistrationForm = async (req, res) => {
         res.redirect('/');
     } catch (error) {
         console.error('Error registering user:', error);
-        req.flash('error', 'An error occurred during registration. Please try again.');
+        
+        // Check if error is PostgreSQL code 23505 (Unique Constraint Violation)
+        if (error.code === '23505') {
+            req.flash('error', 'Email address has an existing record. Please try logging in.');
+        } else {
+            req.flash('error', 'An error occurred during registration. Please try again.');
+        }
+
         res.redirect('/register');
-
-
-      
     }
 };
 
