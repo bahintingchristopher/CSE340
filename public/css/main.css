@@ -651,6 +651,18 @@ color: var(--accent);
     background-color: var(--card);
 }
 
+/* Dashboard */
+.dash-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.dash-board > *:first-child {
+  border-right: 2px solid var(--line); 
+  padding-right: 2rem;
+}
+
 /* =========================================================
   9. FOOTER
   ========================================================= */

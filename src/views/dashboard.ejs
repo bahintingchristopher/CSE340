@@ -3,16 +3,22 @@
 <main>
     <h1><%= title %></h1>
 
+    <div class="dash-board">
+      <div class="board-1">
     <h2>Dashboard</h2>
     <p>Name: <%= name %></p>
     <p>Username: <%= email %></p>
+    </div>
 
+    
     <% if (typeof user !== 'undefined' && user && user.role_name === 'admin') { %>
         <div class="admin-panel">
             <h2>Admin Management</h2>
             <a href="/users" class="btn btn-admin">Registered Users</a>
         </div>
     <% } %>
+    
+    </div> 
 
 </main>
 
