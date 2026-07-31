@@ -570,6 +570,88 @@ color: var(--accent);
 }
 
 /* =========================================================
+   USERS LIST 
+   ========================================================= */
+.users-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1.5rem 0 2rem;
+    background-color: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(28, 43, 69, 0.05);
+    font-family: var(--font-body);
+}
+
+.users-table thead {
+    background-color: var(--card-alt);
+    border-bottom: 2px solid var(--line);
+}
+
+.users-table th {
+    padding: 0.85rem 1.25rem;
+    text-align: left;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--ink);
+    letter-spacing: 0.03em;
+    border-bottom: 2px solid var(--line);
+}
+
+.users-table tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+.users-table tbody tr:not(:last-child) td {
+    border-bottom: 1px solid var(--line);
+}
+
+.users-table tbody tr:nth-child(even) {
+    background-color: rgba(241, 234, 219, 0.4);
+}
+
+.users-table tbody tr:hover {
+    background-color: var(--card-alt);
+}
+
+.users-table td {
+    padding: 0.85rem 1.25rem;
+    color: var(--ink);
+    font-size: 0.9rem;
+    vertical-align: middle;
+}
+
+/* Email Column (Monospace Accent) */
+.users-table td:nth-child(2) {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+}
+
+/* Role Styling Badge */
+.users-table td:last-child {
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+/* Highlight Admin Role */
+.users-table td:contains('admin') {
+    color: var(--accent);
+}
+
+/* Empty State Styling */
+.users-table tbody tr td[colspan] {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--ink-soft);
+    font-style: italic;
+    background-color: var(--card);
+}
+
+/* =========================================================
   9. FOOTER
   ========================================================= */
 footer {
@@ -678,6 +760,13 @@ main img {
 }
 
 .projects-items {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+/* user-list */
+.users-table {
   display: block;
   overflow-x: auto;
   white-space: nowrap;

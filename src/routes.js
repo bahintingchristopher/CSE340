@@ -41,7 +41,8 @@ import { showUserRegistrationForm,
   showLoginForm,
   processLoginForm,
   processLogout,
-  requireRole
+  requireRole,
+  showUsersList
  } from './controllers/users.js';
 
 const router = express.Router();
@@ -97,6 +98,9 @@ router.get('/category/:id', showCategoryDetailsPage);
 
 // 5. Error Testing Route
 router.get('/test-error', testErrorPage);
+
+// week5 assignment: users list
+router.get('/users', requireLogin, requireRole('admin'), showUsersList);
 
 // Protected dashboard route week5
 router.get('/dashboard', requireLogin, showDashboard);
