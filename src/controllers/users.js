@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import { createUser, authenticateUser, getAllUsers } from '../models/users.js';
+import { getProjectsByVolunteer } from '../models/volunteers.js';
 
 const showUserRegistrationForm = (req, res) => {
     res.render('register', { title: 'Register' });
@@ -84,13 +85,23 @@ const requireLogin = (req, res, next) => {
 
 
 // middleware to protect routes week5
-const showDashboard = (req, res) => {
-    const user = req.session.user;
-    res.render('dashboard', { 
-        title: 'Dashboard',
-        name: user.first_name || user.username || user.name || 'Admin',
-        email: user.email
-    });
+const showDashboard = async (req, res, next) => {
+    try {
+        const user = req.session.user;
+
+        // week6 final project - show projects the user has volunteered for
+        const volunteeredProjects = await getProjectsByVolunteer(user.user_id);
+        
+        res.render('dashboard', { 
+            title: 'Dashboard',
+            name: user.first_name || user.username || user.name || 'User',
+            email: user.email,
+            projects: volunteeredProjects
+        });
+    } catch (error) {
+        console.error('Error fetching dashboard projects:', error);
+        next(error);
+    }
 };
 
 // week5 team activity - Create the RequireRole Middleware Function

@@ -19,6 +19,7 @@ import {
   projectValidation,
   showEditProjectForm, //week4 team activity
   processEditProjectForm //week4 team activity
+
 } from './controllers/projects.js';
 import { showCategoriesPage, 
   showCategoryDetailsPage,
@@ -45,13 +46,18 @@ import { showUserRegistrationForm,
   showUsersList
  } from './controllers/users.js';
 
+ import { 
+  processAddVolunteer, 
+  processRemoveVolunteer 
+} from './controllers/volunteer.js';
+
 const router = express.Router();
 
 // 1. Core or Main Page Routes
-router.get('/', showHomePage);
-router.get('/organizations', showOrganizationsPage);
-router.get('/projects', showProjectsPage);
-router.get('/categories', showCategoriesPage);
+router.get('/', requireLogin, showHomePage);
+router.get('/organizations',requireLogin, showOrganizationsPage);
+router.get('/projects', requireLogin, showProjectsPage);
+router.get('/categories', requireLogin, showCategoriesPage);
 
 // 2. Static Form Routes (MUST come before any dynamic :id routes)
 router.get('/new-project', requireRole ('admin'), showNewProjectForm);
@@ -80,6 +86,10 @@ router.post('/edit-project/:id', requireRole('admin'), projectValidation, proces
 // Week 4 individual activity - Edit Category
 router.get('/edit-category/:id', requireRole('admin'), showEditCategoryForm);
 router.post('/edit-category/:id', requireRole('admin'), categoryValidation, processEditCategoryForm);
+
+// week6 final project - add volunteer to project
+router.post('/add-volunteer/:id', requireLogin, processAddVolunteer);
+router.post('/remove-volunteer/:id', requireLogin, processRemoveVolunteer);
 
 // User registration routes
 router.get('/register',  showUserRegistrationForm);

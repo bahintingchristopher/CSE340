@@ -663,6 +663,17 @@ color: var(--accent);
   padding-right: 2rem;
 }
 
+/* Project Cards */
+.project-card {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(28, 43, 69, 0.1);
+}
+
+
+
 /* =========================================================
   9. FOOTER
   ========================================================= */

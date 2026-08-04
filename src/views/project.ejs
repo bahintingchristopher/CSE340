@@ -24,6 +24,25 @@
             <% } %>
         </p>
 
+        <!-- Start week6 final assignment -->
+        <!-- VOLUNTEER SECTION -->
+        <% if (typeof user !== 'undefined' && user && user.role_name !== 'admin') { %>
+            <div class="volunteer-box">
+                <% if (isVolunteering) { %>
+                    <p class="volunteer-status-msg">You are volunteering for this project!</p>
+                    <form action="/remove-volunteer/<%= project.project_id %>" method="POST">
+                    <button type="submit" class="btn btn-unvolunteer">Remove Volunteering</button>
+                    </form>
+                <% } else { %>
+                   <form action="/add-volunteer/<%= project.project_id %>" method="POST">
+                    <button type="submit" class="btn btn-volunteer">Volunteer for this Project</button>
+                    </form>
+                <% } %>
+            </div>
+        <% } %>
+        <!-- end week6 final assignment -->
+
+
         <!-- week4 edit categories  -->
         <% if (user && user.role_name === 'admin') { %> 
         <a href="/assign-categories/<%= project.project_id %>">Edit Categories</a>

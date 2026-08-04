@@ -4,22 +4,57 @@
     <h1><%= title %></h1>
 
     <div class="dash-board">
-      <div class="board-1">
-    <h2>Dashboard</h2>
-    <p>Name: <%= name %></p>
-    <p>Username: <%= email %></p>
-    </div>
-
-    
-    <% if (typeof user !== 'undefined' && user && user.role_name === 'admin') { %>
-        <div class="admin-panel">
-            <h2>Admin Management</h2>
-            <a href="/users" class="btn btn-admin">Registered Users</a>
+        <div class="board-1">
+            <h2>Dashboard</h2>
+            <p>Name: <%= name %></p>
+            <p>Username: <%= email %></p>
         </div>
-    <% } %>
-    
-    </div> 
 
+        <!-- SHOW VOLUNTEERED PROJECTS ONLY FOR STANDARD USERS -->
+        <% if (typeof user !== 'undefined' && user && user.role_name !== 'admin') { %>
+            <div class="volunteered-projects">
+                <h2>My Volunteered Projects</h2>
+
+                <% if (projects && projects.length > 0) { %>
+                    <ul class="project-list">
+                        <% projects.forEach(project => { %>
+                            <li class="project-card">
+                                <div class="project-info">
+                                    <h3>
+                                        <a href="/project/<%= project.project_id %>">
+                                            <%= project.title %>
+                                        </a>
+                                    </h3>
+                                    <p><strong>Location:</strong> <%= project.location %></p>
+                                    <p><strong>Date:</strong> <%= new Date(project.date).toLocaleDateString() %></p>
+                                </div>
+
+                                <form action="/remove-volunteer/<%= project.project_id %>" method="POST">
+                                    <button type="submit" class="btn btn-danger">
+                                        Remove
+                                    </button>
+                                </form>
+                            </li>
+                        <% }); %>
+                    </ul>
+
+                    <div class="dashboard-actions">
+                        <a href="/projects" class="btn">Browse More Projects to Volunteer For</a>
+                    </div>
+                <% } else { %>
+                    <p>You haven't signed up to volunteer for any projects yet.</p>
+                    <a href="/projects" class="btn">Browse Service Projects</a>
+                <% } %>
+            </div>
+        <% } %>
+
+        <% if (typeof user !== 'undefined' && user && user.role_name === 'admin') { %>
+            <div class="admin-panel">
+                <h2>Admin Management</h2>
+                <a href="/users" class="btn btn-admin">Registered Users</a>
+            </div>
+        <% } %>
+    </div> 
 </main>
 
 <%- include('partials/footer') %>

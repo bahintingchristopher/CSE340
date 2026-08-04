@@ -214,5 +214,32 @@ CREATE TABLE users (
 );
 
 
+-- Final Project, week 6 adding project volunteers features
+CREATE TABLE IF NOT EXISTS project_volunteers (
+	project_id INT NOT NULL,
+	user_id INT NOT NULL,
+	signup_data TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (project_id, user_id),
+	FOREIGN KEY (project_id) REFERENCES projects(project_id) ON DELETE CASCADE,
+	FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+SELECT * FROM project_volunteers;
+
+SELECT 
+    u.name AS volunteer_name,
+    u.email,
+    p.title AS project_title,
+    pv.signup_data
+FROM project_volunteers pv
+JOIN users u ON pv.user_id = u.user_id
+JOIN projects p ON pv.project_id = p.project_id;
+
+
+
+
+
+
+
 
 

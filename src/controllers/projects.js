@@ -9,6 +9,8 @@ import {
 import { getAllOrganizations } from '../models/organizations.js';
 import { body, validationResult } from 'express-validator';
 
+import { isUserVolunteering } from '../models/volunteers.js';
+
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
 
 // validation week4 create new project
@@ -59,7 +61,16 @@ const showProjectDetailsPage = async (req, res, next) => {
         const categories = await getCategoriesByProjectId(projectId);
         const title = project.title;
 
-        res.render('project', { title, project, categories });
+        // week 6 final project
+        // Check if user is logged in and whether they are volunteering
+        const user = req.session.user || null;
+        let isVolunteering = false;
+
+        if (user) {
+            isVolunteering = await isUserVolunteering(projectId, user.user_id);
+        }
+        
+        res.render('project', { title, project, categories, user, isVolunteering });
     } catch (error) {
         console.error("Error in showProjectDetailsPage controller:", error);
         next(error);
